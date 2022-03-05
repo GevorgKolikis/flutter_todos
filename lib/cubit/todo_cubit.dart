@@ -2,8 +2,11 @@ import 'package:bloc/bloc.dart';
 
 part 'todo_state.dart';
 
-class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterState(ToDoList: [] ));
+class TodoCubit extends Cubit<TodoState> {
+  TodoCubit() : super(TodoState(ToDoList: []));
 
-  void add() => emit(CounterState(ToDoList:  state.add(t1.text); t1.clear()));
+  void add(String text) {
+    print(state.ToDoList);
+    emit(TodoState(ToDoList: List.from([...state.ToDoList, text])));
+  }
 }

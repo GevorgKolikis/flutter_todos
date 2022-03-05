@@ -6,14 +6,14 @@ class CustomButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-            home: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('ToDo'),
+      home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('ToDo'),
+        ),
+        body: MainMonitor(),
       ),
-      body: MainMonitor(),
-    ),);
+    );
   }
 }
 
@@ -26,70 +26,56 @@ class MainMonitor extends StatefulWidget {
 
 class _MainMonitorState extends State<MainMonitor> {
   TextEditingController t1 = TextEditingController();
-  List ToDoList = [];
-
- 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(50),
+      margin: const EdgeInsets.all(50),
       child: Column(
         children: [
-          Flexible(
-            child:  BlocBuilder<CounterCubit, CounterState>(
-                  builder: (context, state) {
-                    return ListView.builder(
-                itemCount: ToDoList.length,
-                itemBuilder: (context, indexNumber) => ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            child: BlocBuilder<TodoCubit, TodoState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: state.ToDoList.length,
+                  itemBuilder: (context, indexNumber) => ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('${indexNumber + 1}) ${ToDoList[indexNumber]}'),
-                        RaisedButton(
-                          onPressed: (){
-                            setState(() {
-                                    ToDoList.remove(ToDoList[indexNumber]);
-                            });
+                        Text(
+                          '${indexNumber + 1}) ${state.ToDoList[indexNumber]}',
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            //Totally Wrong
+                            /*  setState(() {
+                                ToDoList.remove(ToDoList[indexNumber]);
+                              }); */
                           },
-                          child: Text('Remove'),
+                          child: const Text('Remove'),
                         ),
                       ],
                     ),
-                    ),
-                    );
-                  },
-                ),
-               
-
+                  ),
+                );
+              },
+            ),
           ),
           TextField(
-            
             controller: t1,
           ),
-          SizedBox(height: 30,),
-
-
-
-
-
-
-
-          RaisedButton(
-            onPressed:                   
-                      BlocProvider.of<CounterCubit>(context).Add(),
-            child: Text('Add'),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              BlocProvider.of<TodoCubit>(context).add(t1.text);
+              t1.clear();
+            },
+            child: const Text('Add'),
           ),
         ],
       ),
     );
   }
 }
- 
-                      
-                   
-               
-               
-                    
-                  
-        
