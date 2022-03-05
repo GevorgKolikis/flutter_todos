@@ -1,7 +1,7 @@
 part of 'todo_cubit.dart';
 
-class CounterState {
-    List ToDoList = [];
+class TodoState {
+  List<String> ToDoList = [];
 
-  CounterState({required this.ToDoList});
+  TodoState({required this.ToDoList});
 }

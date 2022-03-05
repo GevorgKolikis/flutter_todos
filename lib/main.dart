@@ -28,7 +28,7 @@ class _CounterState extends State<Counter> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CounterCubit(),
+      create: (context) => TodoCubit(),
       child: CustomButtons(),
     );
   }
